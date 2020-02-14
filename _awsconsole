@@ -1,20 +1,20 @@
-#compdef aws_assume_role
+#compdef awsconsole
 #autoload
 
-__aws_assume_role_common_commands() {
+__awsconsole_common_commands() {
   local -a commands
   commands=("${(f)$(cat ~/.aws/config | grep -o "\[profile [[a-z-]*]" | grep -o " [a-z-]*" | tr -d " ")}")
   _describe -t common-commands 'common commands' commands
 }
 
-__aws_assume_role_commands() {
+__awsconsole_commands() {
   # TODO remove duplicates between common and all commands
   _alternative \
-    'common-commands:command:__aws_assume_role_common_commands'
+    'common-commands:command:__awsconsole_common_commands'
 }
 
 # the main completion functions
-_aws_assume_role() {
+_awsconsole() {
   local curcontext="$curcontext" state state_descr line expl
   local ret=1
 
@@ -22,9 +22,9 @@ _aws_assume_role() {
     '1:command:->command' \
 
   case "$state" in
-    command) __aws_assume_role_commands && return 0 ;;
+    command) __awsconsole_commands && return 0 ;;
 
   esac
 }
 
-_aws_assume_role "$@"
+_awsconsole "$@"
