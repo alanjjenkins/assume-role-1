@@ -28,11 +28,19 @@ aws_assume_role() {
 }
 
 awseval() {
-  eval $(command assume-role $@);
+  if command -v "awsconsole" &>/dev/null; then
+    eval $(command awsconsole -e $@);
+  else
+    eval $(command assume-role $@);
+  fi
 }
 
 awsconsole() {
-  URL=$(command assume-role -console $@);
+  if command -v "awsconsole" &>/dev/null; then
+    URL=$(command awsconsole -u $@);
+  else
+    URL=$(command assume-role -console $@);
+  fi
 
   if [ ! -z "$URL" ]; then
     if echo "$URL" | grep -E '^https:' &> /dev/null; then
@@ -40,5 +48,3 @@ awsconsole() {
     fi
   fi
 }
-
-alias aws_role_detail='function(){unset_aws;env |grep AWS_ACCESS_KEY_ID=;env |grep AWS_SECRET_ACCESS_KEY=;env |grep AWS_SESSION_TOKEN=;env |grep AWS_SECURITY_TOKEN=;}'
