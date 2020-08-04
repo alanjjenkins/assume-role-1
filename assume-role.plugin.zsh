@@ -1,3 +1,14 @@
+amp() { export AWS_DEFAULT_PROFILE="$1"; }
+amr() { export AWS_DEFAULT_REGION="$1"; }
+amc() {
+  unset AWS_DEFAULT_PROFILE
+  unset AWS_DEFAULT_REGION
+  unset AWS_ACCESS_KEY_ID
+  unset AWS_SECRET_ACCESS_KEY
+  unset AWS_SESSION_TOKEN
+  unset AWS_SESSION_EXPIRATION
+}
+
 aws_unset() {
   if [ $(date +%s) -ge $ASSUME_DURING ]; then
     unset ASSUME_DURING;
