@@ -29,6 +29,7 @@ aws_assume_role() {
 
 awseval() {
   if command -v "awsconsole" &>/dev/null; then
+    export AWS_DEFAULT_PROFILE=$@;
     eval $(command awsconsole -e $@);
   else
     eval $(command assume-role $@);
