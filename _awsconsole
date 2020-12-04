@@ -3,7 +3,7 @@
 
 __awsconsole_common_commands() {
   local -a commands
-  commands=("${(f)$(cat ~/.aws/config | grep -o "\[profile [[a-z-]*]" | grep -o " [a-z-]*" | tr -d " ")}")
+  commands=("${(f)$(cat ~/.aws/config | grep -o "\[profile [[a-z0-9-]*]" | grep -o " [a-z0-9-]*" | tr -d " ")}")
   _describe -t common-commands 'common commands' commands
 }
 
